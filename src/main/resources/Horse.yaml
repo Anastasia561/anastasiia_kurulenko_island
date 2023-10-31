@@ -1,0 +1,8 @@
+weight : 400
+speed : 4
+amount : 20
+food : 60
+matrix :
+  Grass : 100
+targetMatrix :
+  Wolf : 10

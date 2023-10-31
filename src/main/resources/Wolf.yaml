@@ -1,0 +1,10 @@
+weight : 50
+speed : 3
+amount : 30
+food : 8
+matrix :
+  Horse : 10
+  Duck : 40
+
+
+
