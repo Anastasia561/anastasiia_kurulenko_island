@@ -5,7 +5,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
-import ua.javarush.island.organism.Organism;
 
 @GameObjectEntity
 @Config(filePath = "Horse.yaml")
@@ -17,12 +16,12 @@ public class Horse extends Herbivorous {
     @Override
     public Horse reproduce() {
         return Horse.builder()
-                .weight(this.getWeight())
+                .normalWeight(this.getWeight())
+                .weight(this.getNormalWeight())
                 .speed(this.getSpeed())
                 .food(this.getFood())
                 .amount(this.getAmount())
-                .matrix(this.getMatrix())
-                .targetMatrix(this.getTargetMatrix())
+                .stringTargetMatrix(this.getStringTargetMatrix())
                 .build();
     }
 }

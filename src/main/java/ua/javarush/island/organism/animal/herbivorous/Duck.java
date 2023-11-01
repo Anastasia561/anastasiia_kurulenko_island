@@ -5,7 +5,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
-import ua.javarush.island.organism.Organism;
 
 @GameObjectEntity
 @Config(filePath = "Duck.yaml")
@@ -16,12 +15,12 @@ public class Duck extends Herbivorous {
     @Override
     public Duck reproduce() {
         return Duck.builder()
-                .weight(this.getWeight())
+                .normalWeight(this.getWeight())
+                .weight(this.getNormalWeight())
                 .speed(this.getSpeed())
                 .food(this.getFood())
                 .amount(this.getAmount())
-                .matrix(this.getMatrix())
-                .targetMatrix(this.getTargetMatrix())
+                .stringTargetMatrix(this.getStringTargetMatrix())
                 .build();
     }
 }

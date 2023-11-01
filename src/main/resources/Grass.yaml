@@ -1,6 +1,2 @@
-amount : 200
-weight : 1
-targetMatrix :
-  Horse : 100
-  Duck : 100
-  Caterpillar : 100
+amount : 10
+normalWeight : 1

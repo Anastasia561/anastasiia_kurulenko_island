@@ -13,18 +13,18 @@ public class GameObjectScanner {
 
     private static final Reflections reflections = new Reflections("ua.javarush.island");
 
-    private GameObjectScanner(){
+    private GameObjectScanner() {
     }
 
-    public static GameObjectScanner getInstance(){
-        if(instance==null){
-            instance=new GameObjectScanner();
+    public static GameObjectScanner getInstance() {
+        if (instance == null) {
+            instance = new GameObjectScanner();
         }
         return instance;
     }
 
-    public Set<Class<? extends Organism>> getGameObjectClasses(){
-        HashSet<Class<? extends Organism>> set =  new HashSet<>();
+    public Set<Class<? extends Organism>> getGameObjectClasses() {
+        HashSet<Class<? extends Organism>> set = new HashSet<>();
         return reflections.getSubTypesOf(Organism.class)
                 .stream()
                 .filter(c -> c.isAnnotationPresent(GameObjectEntity.class))

@@ -1,49 +1,47 @@
 package ua.javarush.island.configurator;
 
-import ua.javarush.island.annotations.Config;
-import ua.javarush.island.annotations.GameObjectEntity;
-import ua.javarush.island.field.Cell;
+import lombok.Getter;
 import ua.javarush.island.field.Coordinate;
 import ua.javarush.island.field.GameField;
 import ua.javarush.island.organism.Organism;
-import ua.javarush.island.organism.animal.predator.Wolf;
+import ua.javarush.island.organism.animal.Animal;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class AppConfigurator {
 
     private static AppConfigurator instance;
 
-    private GameField gameField;
+    @Getter
+    private static GameField gameField;
 
-    private static GameObjectScanner gameObjectScanner = GameObjectScanner.getInstance();
+    private static final GameObjectScanner gameObjectScanner = GameObjectScanner.getInstance();
 
-    private static GameObjectLoader gameObjectLoader = GameObjectLoader.getInstance();
+    private static final GameObjectLoader gameObjectLoader = GameObjectLoader.getInstance();
 
-    private static OrganismFactory organismFactory = OrganismFactory.getInstance();
+    private static final OrganismFactory organismFactory = OrganismFactory.getInstance();
 
 
-    private AppConfigurator(){
+    private AppConfigurator() {
     }
 
-    public static AppConfigurator getInstance(){
-        if(instance==null){
-            instance=new AppConfigurator();
+    public static AppConfigurator getInstance() {
+        if (instance == null) {
+            instance = new AppConfigurator();
         }
         return instance;
     }
 
-    public void init(){
+    public void init() {
         registerPrototypes();
-        createGameField(3, 2);
+        createGameField();
         placeOrganisms();
-        count();
-
     }
 
-    public void registerPrototypes(){
+    private void registerPrototypes() {
         gameObjectScanner.getGameObjectClasses()
                 .stream()
                 .map(gameObjectLoader::loadPrototype)
@@ -51,53 +49,64 @@ public class AppConfigurator {
 
     }
 
-    private void createGameField(int width, int height){
-        Cell[][] cells = new Cell[width][height];
-        gameField = new GameField(width, height, cells);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                cells[i][j] = new Cell(new Coordinate(i, j));
-            }
-        }
+    private void createGameField() {
+        gameField = new GameField(3, 2);
+        gameField.createCells();
     }
 
-    private void placeOrganisms(){
+    private void placeOrganisms() {
         Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
-        for (int i = 0; i < gameField.getWidth() ; i++) {
-            for (int j = 0; j < gameField.getHeight() ; j++) {
-                for (Class<? extends Organism> clazz:gameObjectClasses) {
-                    gameField.getCells()[i][j].getResidents().put(clazz, generateRandomAmount(clazz));
+        for (int i = 0; i < gameField.getWidth(); i++) {
+            for (int j = 0; j < gameField.getHeight(); j++) {
+                for (Class<? extends Organism> clazz : gameObjectClasses) {
+                    Set<Organism> organisms = generateRandomAmount(clazz);
+                    gameField.getCells()[i][j].getResidents().put(clazz, organisms);
+                    for (Organism organism : organisms) {
+                        organism.setCurrentCoordinate(new Coordinate(i, j));
+                    }
                 }
             }
         }
 
     }
 
-    private Set<Organism> generateRandomAmount(Class<? extends Organism> clazz){
+    private Set<Organism> generateRandomAmount(Class<? extends Organism> clazz) {
         Set<Organism> organisms = new HashSet<>();
-        Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
-            int amount = gameObjectLoader.loadPrototype(clazz).getAmount();
-            int randomNumber = (int)(Math.random()*amount+1);
-            for (int i = 0; i < randomNumber; i++) {
-                organisms.add(organismFactory.create(clazz));
+        int amount = gameObjectLoader.loadPrototype(clazz).getAmount();
+        int randomNumber = (int) (Math.random() * amount + 1);
+        for (int i = 0; i < randomNumber; i++) {
+            Organism organism = organismFactory.create(clazz);
+            if (organism instanceof Animal) {
+                createTargetMatrix((Animal) organism);
             }
-
+            organisms.add(organism);
+        }
         return organisms;
     }
 
-    private void  count(){
+    private void createTargetMatrix(Animal animal) {
         Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
-            for (int i = 0; i < gameField.getWidth(); i++) {
-                for (int j = 0; j < gameField.getHeight(); j++) {
-                    for (Class<? extends Organism> clazz : gameObjectClasses) {
-                        int size = gameField.getCells()[i][j].getResidents().get(clazz).size();
-                        System.out.println(clazz.getSimpleName() + size);
-
-                    }
-
+        Map<String, Integer> stringTargetMatrix = animal.getStringTargetMatrix();
+        Map<Class<? extends Organism>, Integer> targetMatrix = new HashMap<>();
+        for (String str : stringTargetMatrix.keySet()) {
+            for (Class<? extends Organism> clazz : gameObjectClasses) {
+                if (str.equals(clazz.getSimpleName())) {
+                    targetMatrix.put(clazz, stringTargetMatrix.get(str));
                 }
             }
         }
+        animal.setTargetMatrix(targetMatrix);
     }
+
+//    public static void countForOneCell() {
+//        Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
+//        for (Class<? extends Organism> clazz : gameObjectClasses) {
+//            int size = gameField.getCells()[0][0].getResidents().get(clazz).size();
+//            System.out.println(clazz.getSimpleName() + " " + size);
+//        }
+//
+//    }
+
+}
 
 

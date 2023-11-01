@@ -5,9 +5,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
-import ua.javarush.island.organism.Organism;
-import ua.javarush.island.organism.animal.herbivorous.Horse;
-import ua.javarush.island.organism.plant.Plant;
 
 @GameObjectEntity
 @Config(filePath = "Grass.yaml")
@@ -18,9 +15,9 @@ public class Grass extends Plant {
     @Override
     public Grass reproduce() {
         return Grass.builder()
-                .weight(this.getWeight())
+                .normalWeight(this.getWeight())
+                .weight(this.getNormalWeight())
                 .amount(this.getAmount())
-                .targetMatrix(this.getTargetMatrix())
                 .build();
     }
 

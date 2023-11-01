@@ -20,26 +20,24 @@ public class GameObjectLoader {
         return instance;
     }
 
-    public <T> T loadPrototype (Class<T> clazz){
+    public <T> T loadPrototype(Class<T> clazz) {
         return loadObject(getConfigFilePath(clazz), clazz);
     }
 
-    private <T> T loadObject(URL configFilePath, Class<T> clazz){
-        YAMLMapper mapper  = new YAMLMapper();
+    private <T> T loadObject(URL configFilePath, Class<T> clazz) {
+        YAMLMapper mapper = new YAMLMapper();
         T organism;
 
         try {
-            organism =  mapper.readValue(configFilePath, clazz);
+            organism = mapper.readValue(configFilePath, clazz);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return organism;
     }
 
-    private URL getConfigFilePath(Class<?> clazz){
+    private URL getConfigFilePath(Class<?> clazz) {
         Config config = clazz.getAnnotation(Config.class);
         return clazz.getClassLoader().getResource(config.filePath());
-
-
     }
 }

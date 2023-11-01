@@ -1,8 +1,7 @@
-weight : 400
+normalWeight : 400
 speed : 4
-amount : 20
+amount : 4
 food : 60
-matrix :
+stringTargetMatrix :
   Grass : 100
-targetMatrix :
-  Wolf : 10
+

@@ -5,7 +5,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
-import ua.javarush.island.organism.Organism;
 
 @GameObjectEntity
 @Config(filePath = "Caterpillar.yaml")
@@ -15,13 +14,13 @@ import ua.javarush.island.organism.Organism;
 public class Caterpillar extends Herbivorous {
     @Override
     public Caterpillar reproduce() {
-        return  Caterpillar.builder()
-                .weight(this.getWeight())
+        return Caterpillar.builder()
+                .normalWeight(this.getWeight())
+                .weight(this.getNormalWeight())
                 .speed(this.getSpeed())
                 .food(this.getFood())
                 .amount(this.getAmount())
-                .matrix(this.getMatrix())
-                .targetMatrix(this.getTargetMatrix())
+                .stringTargetMatrix(this.getStringTargetMatrix())
                 .build();
     }
 }

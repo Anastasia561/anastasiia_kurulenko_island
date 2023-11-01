@@ -2,20 +2,29 @@ package ua.javarush.island.organism;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import ua.javarush.island.field.Coordinate;
+import ua.javarush.island.field.GameField;
 
 import java.util.Map;
 
 @SuperBuilder
 @NoArgsConstructor
-public abstract class Organism implements GameObject{
+public abstract class Organism {
     @Getter
-    int amount;
+    @Setter
+    private Coordinate currentCoordinate;
     @Getter
-    int weight;
+    private int amount;
     @Getter
-    Map<String, Integer> targetMatrix;
+    @Setter
+    private int weight;
+    @Getter
+    private int normalWeight;
 
     public abstract Organism reproduce();
+
+    public abstract void play(GameField gameField);
 
 }
