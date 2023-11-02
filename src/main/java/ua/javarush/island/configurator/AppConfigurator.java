@@ -24,7 +24,6 @@ public class AppConfigurator {
 
     private static final OrganismFactory organismFactory = OrganismFactory.getInstance();
 
-
     private AppConfigurator() {
     }
 
@@ -67,7 +66,6 @@ public class AppConfigurator {
                 }
             }
         }
-
     }
 
     private Set<Organism> generateRandomAmount(Class<? extends Organism> clazz) {
@@ -84,7 +82,7 @@ public class AppConfigurator {
         return organisms;
     }
 
-    private void createTargetMatrix(Animal animal) {
+    public void createTargetMatrix(Animal animal) {
         Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
         Map<String, Integer> stringTargetMatrix = animal.getStringTargetMatrix();
         Map<Class<? extends Organism>, Integer> targetMatrix = new HashMap<>();
@@ -97,7 +95,4 @@ public class AppConfigurator {
         }
         animal.setTargetMatrix(targetMatrix);
     }
-
 }
-
-

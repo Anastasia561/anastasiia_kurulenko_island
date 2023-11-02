@@ -26,7 +26,6 @@ public class GameObjectLoader {
     private <T> T loadObject(URL configFilePath, Class<T> clazz) {
         YAMLMapper mapper = new YAMLMapper();
         T organism;
-
         try {
             organism = mapper.readValue(configFilePath, clazz);
         } catch (IOException e) {

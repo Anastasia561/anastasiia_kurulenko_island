@@ -3,6 +3,7 @@ package ua.javarush.island.configurator;
 import org.reflections.Reflections;
 import ua.javarush.island.annotations.GameObjectEntity;
 import ua.javarush.island.organism.Organism;
+import ua.javarush.island.organism.animal.predator.Predator;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,10 +25,13 @@ public class GameObjectScanner {
     }
 
     public Set<Class<? extends Organism>> getGameObjectClasses() {
-        HashSet<Class<? extends Organism>> set = new HashSet<>();
         return reflections.getSubTypesOf(Organism.class)
                 .stream()
                 .filter(c -> c.isAnnotationPresent(GameObjectEntity.class))
                 .collect(Collectors.toSet());
+    }
+
+    public <T> Set<Class<? extends T>> getSpecialClasses(Class<T> clazz) {
+        return new HashSet<>(reflections.getSubTypesOf(clazz));
     }
 }

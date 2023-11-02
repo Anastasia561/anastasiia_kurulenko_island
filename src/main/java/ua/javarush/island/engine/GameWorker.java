@@ -3,11 +3,18 @@ package ua.javarush.island.engine;
 import ua.javarush.island.configurator.AppConfigurator;
 import ua.javarush.island.field.GameField;
 import ua.javarush.island.organism.Organism;
+import ua.javarush.island.statistics.StatisticalProcessor;
+import ua.javarush.island.tasks.SimulateIslandTask;
+import ua.javarush.island.tasks.StatisticTask;
 
 import java.lang.reflect.Type;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class GameWorker {
     private static GameWorker instance;
@@ -31,15 +38,28 @@ public class GameWorker {
                 Set<Type> types = residents.keySet();
                 for (Type type : types) {
                     Set<Organism> organisms = residents.get(type);
-                    Set<Organism> clonedOrganisms = new HashSet<>();
-                    for (Organism organism : organisms) {
-                        clonedOrganisms.add(organism.clone());
-                    }
-                    for (Organism org:clonedOrganisms) {
+                    Set<Organism> clonedOrganisms = cloneOrganismsSet(organisms);
+                    for (Organism org : clonedOrganisms) {
                         org.play(gameField);
                     }
                 }
             }
         }
+    }
+
+    private Set<Organism> cloneOrganismsSet(Set<Organism> organisms) {
+        Set<Organism> clonedOrganisms = new HashSet<>();
+        for (Organism organism : organisms) {
+            clonedOrganisms.add(organism.clone());
+        }
+        return clonedOrganisms;
+    }
+
+    public void play() {
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
+            executor.scheduleWithFixedDelay(new StatisticTask(), 0, 1, TimeUnit.SECONDS);
+            executor.scheduleWithFixedDelay(new SimulateIslandTask(), 0, 1, TimeUnit.SECONDS);
+
     }
 }

@@ -27,5 +27,4 @@ public class OrganismFactory {
     public Organism create(Class<? extends Organism> clazz) {
         return prototypes.get(clazz).reproduce();
     }
-
 }

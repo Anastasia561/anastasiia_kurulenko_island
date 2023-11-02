@@ -10,7 +10,6 @@ public class GameField {
     @Getter
     private Cell[][] cells;
 
-
     public GameField(int width, int height) {
         this.width = width;
         this.height = height;
@@ -25,5 +24,4 @@ public class GameField {
         }
         this.cells = cells;
     }
-
 }

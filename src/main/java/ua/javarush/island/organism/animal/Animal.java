@@ -26,17 +26,23 @@ public abstract class Animal extends Organism {
     @Getter
     @Setter
     private Map<Class<? extends Organism>, Integer> targetMatrix;
+    @Getter
     private static int diedAnimals;
 
     private void move(GameField gameField) {
         Coordinate targetCoordinate = getDestination(getCurrentCoordinate(), this.getSpeed());
         if (checkDestination(targetCoordinate, gameField) && checkPopulationOnCell(gameField, targetCoordinate)) {
-            Map<Type, Set<Organism>> residentsOfTargetCell = gameField.getCells()[targetCoordinate.getX()][targetCoordinate.getY()].getResidents();
+            Map<Type, Set<Organism>> residentsOfTargetCell = gameField.getCells()[targetCoordinate.getX()]
+                                                            [targetCoordinate.getY()].getResidents();
+            this.setCurrentCoordinate(targetCoordinate);
             residentsOfTargetCell.get(this.getClass()).add(this);
-            Map<Type, Set<Organism>> residentsOfCurrentCell = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
+            Map<Type, Set<Organism>> residentsOfCurrentCell = gameField.getCells()[getCurrentCoordinate().getX()]
+                                                            [getCurrentCoordinate().getY()].getResidents();
             residentsOfCurrentCell.get(this.getClass()).remove(this);
 
-            System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " " + targetCoordinate.getY());
+
+           // System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " "
+                   // + targetCoordinate.getY());
         }
     }
 
@@ -73,7 +79,8 @@ public abstract class Animal extends Organism {
     }
 
     private void eat(GameField gameField) {
-        Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
+        Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()]
+                                                [getCurrentCoordinate().getY()].getResidents();
         Class<? extends Organism> target = chooseTarget();
         Set<Organism> organisms = residents.get(target);
         if (organisms.size() != 0) {
@@ -83,8 +90,8 @@ public abstract class Animal extends Organism {
             }
             if (removedOrganism != null) {
                 this.setWeight(getWeight() + removedOrganism.getWeight());
-                System.out.println(this.getClass().getSimpleName() + " " + "eat" + " " +
-                        removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
+                //System.out.println(this.getClass().getSimpleName() + " " + "eat" + " " +
+                        //removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
             }
             organisms.remove(removedOrganism);
             diedAnimals++;
@@ -116,8 +123,6 @@ public abstract class Animal extends Organism {
                 }
             }
         }
-        System.out.println(diedAnimals + " organisms died");
+        //System.out.println(diedAnimals + " organisms died");
     }
-
-
 }

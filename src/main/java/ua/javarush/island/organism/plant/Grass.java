@@ -20,6 +20,4 @@ public class Grass extends Plant {
                 .amount(this.getAmount())
                 .build();
     }
-
-
 }

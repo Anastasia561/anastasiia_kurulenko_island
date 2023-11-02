@@ -1,4 +1,4 @@
-package ua.javarush.island.organism.animal.herbivorous;
+package ua.javarush.island.organism.animal.herbivore;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -11,7 +11,7 @@ import ua.javarush.island.annotations.GameObjectEntity;
 @NoArgsConstructor
 @SuperBuilder
 @ToString(callSuper = true)
-public class Horse extends Herbivorous {
+public class Horse extends Herbivore {
 
     @Override
     public Horse reproduce() {

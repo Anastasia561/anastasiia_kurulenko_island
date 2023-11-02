@@ -1,4 +1,4 @@
-package ua.javarush.island.organism.animal.herbivorous;
+package ua.javarush.island.organism.animal.herbivore;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,14 +7,14 @@ import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
 
 @GameObjectEntity
-@Config(filePath = "Duck.yaml")
+@Config(filePath = "Caterpillar.yaml")
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class Duck extends Herbivorous {
+public class Caterpillar extends Herbivore {
     @Override
-    public Duck reproduce() {
-        return Duck.builder()
+    public Caterpillar reproduce() {
+        return Caterpillar.builder()
                 .normalWeight(this.getWeight())
                 .weight(this.getNormalWeight())
                 .speed(this.getSpeed())

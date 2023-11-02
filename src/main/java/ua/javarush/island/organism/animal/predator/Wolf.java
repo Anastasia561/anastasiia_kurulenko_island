@@ -24,6 +24,4 @@ public class Wolf extends Predator {
                 .stringTargetMatrix(this.getStringTargetMatrix())
                 .build();
     }
-
-
 }

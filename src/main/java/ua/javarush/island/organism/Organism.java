@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import ua.javarush.island.configurator.AppConfigurator;
 import ua.javarush.island.configurator.OrganismFactory;
 import ua.javarush.island.field.Coordinate;
 import ua.javarush.island.field.GameField;
+import ua.javarush.island.organism.animal.Animal;
 
 import java.lang.reflect.Type;
 import java.util.Map;
@@ -34,8 +36,13 @@ public abstract class Organism implements Cloneable {
         Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
         Set<Organism> organismsOnCurrentCell = residents.get(this.getClass());
         if (checkPopulationOnCell(gameField, getCurrentCoordinate()) && organismsOnCurrentCell.size() > 1) {
-            organismsOnCurrentCell.add(OrganismFactory.getInstance().create(this.getClass()));
-            System.out.println(this.getClass().getSimpleName() + " " + "reproduced");
+            Organism organism = OrganismFactory.getInstance().create(this.getClass());
+            organism.setCurrentCoordinate(getCurrentCoordinate());
+            if(organism instanceof Animal){
+                AppConfigurator.getInstance().createTargetMatrix((Animal) organism);
+            }
+            organismsOnCurrentCell.add(organism);
+            //System.out.println(this.getClass().getSimpleName() + " " + "reproduced");
         }
     }
 
