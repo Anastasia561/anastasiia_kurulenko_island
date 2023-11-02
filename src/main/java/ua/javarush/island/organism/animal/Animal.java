@@ -12,7 +12,6 @@ import ua.javarush.island.organism.Organism;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -21,7 +20,7 @@ public abstract class Animal extends Organism {
     @Getter
     private int speed;
     @Getter
-    private int food;
+    private double food;
     @Getter
     private Map<String, Integer> stringTargetMatrix;
     @Getter
@@ -29,36 +28,15 @@ public abstract class Animal extends Organism {
     private Map<Class<? extends Organism>, Integer> targetMatrix;
     private static int diedAnimals;
 
-    private void reproduceOnCell(GameField gameField) {
-        if (checkPopulationOnCell(gameField, getCurrentCoordinate())) {
-            //this.reproduce();
-            Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
-            residents.get(this.getClass()).add(this);
-            System.out.println(this.getClass().getSimpleName() + " " + "reproduced");
-        }
-    }
-
-    private boolean checkPopulationOnCell(GameField gameField, Coordinate coordinate) {
-        Map<Type, Set<Organism>> residents = gameField.getCells()[coordinate.getX()]
-                [coordinate.getY()].getResidents();
-        Set<? extends Organism> organisms = residents.get(this.getClass());
-        return (organisms.size() <= this.getAmount());
-    }
-
     private void move(GameField gameField) {
         Coordinate targetCoordinate = getDestination(getCurrentCoordinate(), this.getSpeed());
         if (checkDestination(targetCoordinate, gameField) && checkPopulationOnCell(gameField, targetCoordinate)) {
             Map<Type, Set<Organism>> residentsOfTargetCell = gameField.getCells()[targetCoordinate.getX()][targetCoordinate.getY()].getResidents();
-            Set<Organism> organisms = residentsOfTargetCell.get(this.getClass());
-            organisms.add(this);
+            residentsOfTargetCell.get(this.getClass()).add(this);
             Map<Type, Set<Organism>> residentsOfCurrentCell = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
-            Set<Organism> organisms1 = residentsOfCurrentCell.get(this.getClass());
-            Set<Organism> collect = organisms1.stream()
-                    .filter(c -> !c.equals(this))
-                    .collect(Collectors.toSet());
-            organisms1=collect;
+            residentsOfCurrentCell.get(this.getClass()).remove(this);
 
-            System.out.println(this.getClass().getSimpleName() + " " + "moved to "+ targetCoordinate.getX()+" "+targetCoordinate.getY());
+            System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " " + targetCoordinate.getY());
         }
     }
 
@@ -105,7 +83,8 @@ public abstract class Animal extends Organism {
             }
             if (removedOrganism != null) {
                 this.setWeight(getWeight() + removedOrganism.getWeight());
-                System.out.println(this.getClass().getSimpleName() + " " + "eat"+ " "+ removedOrganism.getClass().getSimpleName());
+                System.out.println(this.getClass().getSimpleName() + " " + "eat" + " " +
+                        removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
             }
             organisms.remove(removedOrganism);
             diedAnimals++;

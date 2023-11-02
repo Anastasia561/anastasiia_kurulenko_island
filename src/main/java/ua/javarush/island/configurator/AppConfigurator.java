@@ -35,9 +35,9 @@ public class AppConfigurator {
         return instance;
     }
 
-    public void init() {
+    public void init(int width, int height) {
         registerPrototypes();
-        createGameField();
+        createGameField(width, height);
         placeOrganisms();
     }
 
@@ -49,8 +49,8 @@ public class AppConfigurator {
 
     }
 
-    private void createGameField() {
-        gameField = new GameField(3, 2);
+    private void createGameField(int width, int height) {
+        gameField = new GameField(width, height);
         gameField.createCells();
     }
 
@@ -97,15 +97,6 @@ public class AppConfigurator {
         }
         animal.setTargetMatrix(targetMatrix);
     }
-
-//    public static void countForOneCell() {
-//        Set<Class<? extends Organism>> gameObjectClasses = gameObjectScanner.getGameObjectClasses();
-//        for (Class<? extends Organism> clazz : gameObjectClasses) {
-//            int size = gameField.getCells()[0][0].getResidents().get(clazz).size();
-//            System.out.println(clazz.getSimpleName() + " " + size);
-//        }
-//
-//    }
 
 }
 

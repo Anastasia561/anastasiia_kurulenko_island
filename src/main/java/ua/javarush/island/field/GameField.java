@@ -1,12 +1,6 @@
 package ua.javarush.island.field;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import ua.javarush.island.annotations.Config;
-
-import java.io.Serializable;
 
 public class GameField {
     @Getter

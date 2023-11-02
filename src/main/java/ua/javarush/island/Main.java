@@ -1,6 +1,7 @@
 package ua.javarush.island;
 
 import ua.javarush.island.configurator.AppConfigurator;
+import ua.javarush.island.console.ConsoleProvider;
 import ua.javarush.island.engine.GameWorker;
 import ua.javarush.island.organism.animal.Animal;
 import ua.javarush.island.statistics.StatisticalProcessor;
@@ -8,7 +9,11 @@ import ua.javarush.island.statistics.StatisticalProcessor;
 
 public class Main {
     public static void main(String[] args) {
-        AppConfigurator.getInstance().init();
+        ConsoleProvider.getInstance().printToConsole("Enter width of island: ");
+        int width  = ConsoleProvider.getInstance().readIntFromConsole();
+        ConsoleProvider.getInstance().printToConsole("Enter length of island: ");
+        int length = ConsoleProvider.getInstance().readIntFromConsole();
+        AppConfigurator.getInstance().init(width, length);
         StatisticalProcessor.getInstance().count();
         GameWorker.getInstance().startGame();
         Animal.die(AppConfigurator.getGameField());

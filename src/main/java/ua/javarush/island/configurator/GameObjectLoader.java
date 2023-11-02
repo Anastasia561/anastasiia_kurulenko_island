@@ -4,7 +4,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import ua.javarush.island.annotations.Config;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class GameObjectLoader {
