@@ -13,23 +13,18 @@ public class Main {
         ConsoleProvider.getInstance().printToConsole("Enter length of island: ");
         int length = ConsoleProvider.getInstance().readIntFromConsole();
         AppConfigurator.getInstance().init(width, length);
-        //StatisticalProcessor.getInstance().count();
+        GameWorker.getInstance().play();
         //StatisticalProcessor.getInstance().getStatistics();
-        //GameWorker.getInstance().startGame();
-        //Animal.die(AppConfigurator.getGameField());
-        //StatisticalProcessor.getInstance().getStatistics();
-        //StatisticalProcessor.getInstance().count();
-        //GameWorker.getInstance().play();
-        StatisticalProcessor.getInstance().getStatistics();
-        while(true){
-            GameWorker.getInstance().startGame();
-            StatisticalProcessor.getInstance().getStatistics();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
+//        while(true){
+//            GameWorker.getInstance().startGame();
+//            Animal.die(AppConfigurator.getGameField());
+//            StatisticalProcessor.getInstance().getStatistics();
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
 
     }
 }

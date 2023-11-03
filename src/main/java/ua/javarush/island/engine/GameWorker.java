@@ -13,7 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class GameWorker {
@@ -56,10 +55,13 @@ public class GameWorker {
     }
 
     public void play() {
-        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
+        executor.scheduleWithFixedDelay(new StatisticTask(), 0, 2, TimeUnit.SECONDS);
+        executor.scheduleWithFixedDelay(new SimulateIslandTask(), 1, 2, TimeUnit.SECONDS);
 
-            executor.scheduleWithFixedDelay(new StatisticTask(), 0, 1, TimeUnit.SECONDS);
-            executor.scheduleWithFixedDelay(new SimulateIslandTask(), 0, 1, TimeUnit.SECONDS);
 
+//        if (StatisticalProcessor.getInstance().getPlants() == 0) {
+//            executor.shutdown();
+//        }
     }
 }

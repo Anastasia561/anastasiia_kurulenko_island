@@ -33,7 +33,8 @@ public abstract class Organism implements Cloneable {
     public abstract void play(GameField gameField);
 
     protected void reproduceOnCell(GameField gameField) {
-        Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()][getCurrentCoordinate().getY()].getResidents();
+        Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()]
+                                                    [getCurrentCoordinate().getY()].getResidents();
         Set<Organism> organismsOnCurrentCell = residents.get(this.getClass());
         if (checkPopulationOnCell(gameField, getCurrentCoordinate()) && organismsOnCurrentCell.size() > 1) {
             Organism organism = OrganismFactory.getInstance().create(this.getClass());

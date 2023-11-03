@@ -12,10 +12,10 @@ import ua.javarush.island.organism.Organism;
 import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SuperBuilder
 @NoArgsConstructor
-
 public abstract class Animal extends Organism {
     @Getter
     private int speed;
@@ -33,16 +33,16 @@ public abstract class Animal extends Organism {
         Coordinate targetCoordinate = getDestination(getCurrentCoordinate(), this.getSpeed());
         if (checkDestination(targetCoordinate, gameField) && checkPopulationOnCell(gameField, targetCoordinate)) {
             Map<Type, Set<Organism>> residentsOfTargetCell = gameField.getCells()[targetCoordinate.getX()]
-                                                            [targetCoordinate.getY()].getResidents();
+                    [targetCoordinate.getY()].getResidents();
             this.setCurrentCoordinate(targetCoordinate);
             residentsOfTargetCell.get(this.getClass()).add(this);
             Map<Type, Set<Organism>> residentsOfCurrentCell = gameField.getCells()[getCurrentCoordinate().getX()]
-                                                            [getCurrentCoordinate().getY()].getResidents();
+                    [getCurrentCoordinate().getY()].getResidents();
             residentsOfCurrentCell.get(this.getClass()).remove(this);
 
 
-           // System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " "
-                   // + targetCoordinate.getY());
+            // System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " "
+            // + targetCoordinate.getY());
         }
     }
 
@@ -65,7 +65,8 @@ public abstract class Animal extends Organism {
     }
 
     private Direction getDirection() {
-        int number = (int) (Math.random() * 3 + 1);
+        int number = ThreadLocalRandom.current().nextInt(0, 4);
+        //int number = (int) (Math.random() * 3 + 1);
         return switch (number) {
             case 1 -> Direction.LEFT;
             case 2 -> Direction.UP;
@@ -75,12 +76,13 @@ public abstract class Animal extends Organism {
     }
 
     private int getSteps(int max) {
-        return (int) (Math.random() * max + 1);
+        return ThreadLocalRandom.current().nextInt(0, max + 1);
+        //return (int) (Math.random() * max + 1);
     }
 
     private void eat(GameField gameField) {
         Map<Type, Set<Organism>> residents = gameField.getCells()[getCurrentCoordinate().getX()]
-                                                [getCurrentCoordinate().getY()].getResidents();
+                [getCurrentCoordinate().getY()].getResidents();
         Class<? extends Organism> target = chooseTarget();
         Set<Organism> organisms = residents.get(target);
         if (organisms.size() != 0) {
@@ -91,7 +93,7 @@ public abstract class Animal extends Organism {
             if (removedOrganism != null) {
                 this.setWeight(getWeight() + removedOrganism.getWeight());
                 //System.out.println(this.getClass().getSimpleName() + " " + "eat" + " " +
-                        //removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
+                //removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
             }
             organisms.remove(removedOrganism);
             diedAnimals++;
@@ -102,7 +104,8 @@ public abstract class Animal extends Organism {
 
     private Class<? extends Organism> chooseTarget() {
         Class<? extends Organism> defaultTarget = null;
-        int number = (int) (Math.random() * 100 + 1);
+        int number = ThreadLocalRandom.current().nextInt(0, 101);
+        //int number = (int) (Math.random() * 100 + 1);
         for (Class<? extends Organism> clazz : targetMatrix.keySet()) {
             defaultTarget = clazz;
             if (targetMatrix.get(clazz) >= number) {

@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class AppConfigurator {
 
@@ -71,7 +72,8 @@ public class AppConfigurator {
     private Set<Organism> generateRandomAmount(Class<? extends Organism> clazz) {
         Set<Organism> organisms = new HashSet<>();
         int amount = gameObjectLoader.loadPrototype(clazz).getAmount();
-        int randomNumber = (int) (Math.random() * amount + 1);
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, amount);
+        //int randomNumber = (int) (Math.random() * amount + 1);
         for (int i = 0; i < randomNumber; i++) {
             Organism organism = organismFactory.create(clazz);
             if (organism instanceof Animal) {

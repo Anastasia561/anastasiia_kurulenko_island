@@ -37,17 +37,17 @@ public class StatisticalProcessor {
 
     GameField gameField = AppConfigurator.getGameField();
 
-    public void count() {
-        Set<Class<? extends Organism>> gameObjectClasses = GameObjectScanner.getInstance().getGameObjectClasses();
-        for (int i = 0; i < gameField.getWidth(); i++) {
-            for (int j = 0; j < gameField.getHeight(); j++) {
-                for (Class<? extends Organism> clazz : gameObjectClasses) {
-                    int size = gameField.getCells()[i][j].getResidents().get(clazz).size();
-                    System.out.println(clazz.getSimpleName() + size);
-                }
-            }
-        }
-    }
+//    public void count() {
+//        Set<Class<? extends Organism>> gameObjectClasses = GameObjectScanner.getInstance().getGameObjectClasses();
+//        for (int i = 0; i < gameField.getWidth(); i++) {
+//            for (int j = 0; j < gameField.getHeight(); j++) {
+//                for (Class<? extends Organism> clazz : gameObjectClasses) {
+//                    int size = gameField.getCells()[i][j].getResidents().get(clazz).size();
+//                    System.out.println(clazz.getSimpleName() + size);
+//                }
+//            }
+//        }
+//    }
 
     private void countOrganisms() {
         predators = 0;
