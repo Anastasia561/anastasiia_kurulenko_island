@@ -39,10 +39,6 @@ public abstract class Animal extends Organism {
             Map<Type, Set<Organism>> residentsOfCurrentCell = gameField.getCells()[getCurrentCoordinate().getX()]
                     [getCurrentCoordinate().getY()].getResidents();
             residentsOfCurrentCell.get(this.getClass()).remove(this);
-
-
-            // System.out.println(this.getClass().getSimpleName() + " " + "moved to " + targetCoordinate.getX() + " "
-            // + targetCoordinate.getY());
         }
     }
 
@@ -66,7 +62,6 @@ public abstract class Animal extends Organism {
 
     private Direction getDirection() {
         int number = ThreadLocalRandom.current().nextInt(0, 4);
-        //int number = (int) (Math.random() * 3 + 1);
         return switch (number) {
             case 1 -> Direction.LEFT;
             case 2 -> Direction.UP;
@@ -77,7 +72,6 @@ public abstract class Animal extends Organism {
 
     private int getSteps(int max) {
         return ThreadLocalRandom.current().nextInt(0, max + 1);
-        //return (int) (Math.random() * max + 1);
     }
 
     private void eat(GameField gameField) {
@@ -92,12 +86,9 @@ public abstract class Animal extends Organism {
             }
             if (removedOrganism != null) {
                 this.setWeight(getWeight() + removedOrganism.getWeight());
-                //System.out.println(this.getClass().getSimpleName() + " " + "eat" + " " +
-                //removedOrganism.getClass().getSimpleName() + " its weight now " + this.getWeight());
             }
             organisms.remove(removedOrganism);
             diedAnimals++;
-
         }
         setWeight(getWeight() - getFood());
     }
@@ -126,6 +117,5 @@ public abstract class Animal extends Organism {
                 }
             }
         }
-        //System.out.println(diedAnimals + " organisms died");
     }
 }

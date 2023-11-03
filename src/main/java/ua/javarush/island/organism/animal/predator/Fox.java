@@ -7,14 +7,14 @@ import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
 
 @GameObjectEntity
-@Config(filePath = "Wolf.yaml")
+@Config(filePath = "Fox.yaml")
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
-public class Wolf extends Predator {
+public class Fox extends Predator {
     @Override
-    public Wolf reproduce() {
-        return Wolf.builder()
+    public Fox reproduce() {
+        return Fox.builder()
                 .normalWeight(this.getWeight())
                 .weight(this.getNormalWeight())
                 .speed(this.getSpeed())

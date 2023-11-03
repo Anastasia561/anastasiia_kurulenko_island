@@ -12,7 +12,6 @@ import ua.javarush.island.annotations.GameObjectEntity;
 @SuperBuilder
 @ToString(callSuper = true)
 public class Horse extends Herbivore {
-
     @Override
     public Horse reproduce() {
         return Horse.builder()

@@ -1,0 +1,9 @@
+normalWeight : 8
+speed : 2
+amount : 30
+food : 2
+stringTargetMatrix :
+  Caterpillar : 40
+  Duck : 60
+  Mouse : 90
+  Rabbit : 70

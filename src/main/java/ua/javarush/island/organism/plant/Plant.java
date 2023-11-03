@@ -8,7 +8,6 @@ import ua.javarush.island.organism.Organism;
 @SuperBuilder
 @NoArgsConstructor
 public abstract class Plant extends Organism {
-
     @Override
     public void play(GameField gameField) {
         reproduceOnCell(gameField);

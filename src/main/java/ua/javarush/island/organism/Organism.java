@@ -43,7 +43,6 @@ public abstract class Organism implements Cloneable {
                 AppConfigurator.getInstance().createTargetMatrix((Animal) organism);
             }
             organismsOnCurrentCell.add(organism);
-            //System.out.println(this.getClass().getSimpleName() + " " + "reproduced");
         }
     }
 

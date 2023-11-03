@@ -3,7 +3,6 @@ package ua.javarush.island.configurator;
 import org.reflections.Reflections;
 import ua.javarush.island.annotations.GameObjectEntity;
 import ua.javarush.island.organism.Organism;
-import ua.javarush.island.organism.animal.predator.Predator;
 
 import java.util.HashSet;
 import java.util.Set;

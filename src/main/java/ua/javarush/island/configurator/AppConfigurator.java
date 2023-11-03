@@ -46,7 +46,6 @@ public class AppConfigurator {
                 .stream()
                 .map(gameObjectLoader::loadPrototype)
                 .forEach(organismFactory::registerPrototype);
-
     }
 
     private void createGameField(int width, int height) {
@@ -73,7 +72,6 @@ public class AppConfigurator {
         Set<Organism> organisms = new HashSet<>();
         int amount = gameObjectLoader.loadPrototype(clazz).getAmount();
         int randomNumber = ThreadLocalRandom.current().nextInt(0, amount);
-        //int randomNumber = (int) (Math.random() * amount + 1);
         for (int i = 0; i < randomNumber; i++) {
             Organism organism = organismFactory.create(clazz);
             if (organism instanceof Animal) {

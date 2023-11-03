@@ -1,0 +1,8 @@
+normalWeight : 400
+speed : 2
+amount : 50
+food : 50
+stringTargetMatrix :
+  Mouse : 50
+  Caterpillar : 90
+  Grass : 100

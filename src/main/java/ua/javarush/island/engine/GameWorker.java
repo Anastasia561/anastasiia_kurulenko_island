@@ -3,7 +3,6 @@ package ua.javarush.island.engine;
 import ua.javarush.island.configurator.AppConfigurator;
 import ua.javarush.island.field.GameField;
 import ua.javarush.island.organism.Organism;
-import ua.javarush.island.statistics.StatisticalProcessor;
 import ua.javarush.island.tasks.SimulateIslandTask;
 import ua.javarush.island.tasks.StatisticTask;
 
@@ -58,10 +57,5 @@ public class GameWorker {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
         executor.scheduleWithFixedDelay(new StatisticTask(), 0, 2, TimeUnit.SECONDS);
         executor.scheduleWithFixedDelay(new SimulateIslandTask(), 1, 2, TimeUnit.SECONDS);
-
-
-//        if (StatisticalProcessor.getInstance().getPlants() == 0) {
-//            executor.shutdown();
-//        }
     }
 }

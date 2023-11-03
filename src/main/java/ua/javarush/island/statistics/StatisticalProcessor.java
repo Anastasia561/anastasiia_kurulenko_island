@@ -5,7 +5,6 @@ import ua.javarush.island.configurator.AppConfigurator;
 import ua.javarush.island.configurator.GameObjectScanner;
 import ua.javarush.island.console.ConsoleProvider;
 import ua.javarush.island.field.GameField;
-import ua.javarush.island.organism.Organism;
 import ua.javarush.island.organism.animal.Animal;
 import ua.javarush.island.organism.animal.herbivore.Herbivore;
 import ua.javarush.island.organism.animal.predator.Predator;
@@ -14,17 +13,15 @@ import ua.javarush.island.organism.plant.Plant;
 import java.util.Set;
 
 public class StatisticalProcessor {
-
+    private static StatisticalProcessor instance;
     private GameObjectScanner gameObjectScanner = GameObjectScanner.getInstance();
     private ConsoleProvider consoleProvider = ConsoleProvider.getInstance();
-    private static StatisticalProcessor instance;
-
     private int predators = 0;
     private int herbivores = 0;
     @Getter
     private int plants = 0;
-    private int day=0;
-
+    private int day = 0;
+    GameField gameField = AppConfigurator.getGameField();
     private StatisticalProcessor() {
     }
 
@@ -34,20 +31,6 @@ public class StatisticalProcessor {
         }
         return instance;
     }
-
-    GameField gameField = AppConfigurator.getGameField();
-
-//    public void count() {
-//        Set<Class<? extends Organism>> gameObjectClasses = GameObjectScanner.getInstance().getGameObjectClasses();
-//        for (int i = 0; i < gameField.getWidth(); i++) {
-//            for (int j = 0; j < gameField.getHeight(); j++) {
-//                for (Class<? extends Organism> clazz : gameObjectClasses) {
-//                    int size = gameField.getCells()[i][j].getResidents().get(clazz).size();
-//                    System.out.println(clazz.getSimpleName() + size);
-//                }
-//            }
-//        }
-//    }
 
     private void countOrganisms() {
         predators = 0;
@@ -73,14 +56,12 @@ public class StatisticalProcessor {
 
     public void getStatistics() {
         consoleProvider.printToConsole("=".repeat(10));
-        consoleProvider.printToConsole("Day: "+day);
+        consoleProvider.printToConsole("Day: " + day);
         countOrganisms();
-        consoleProvider.printToConsole("Animals died: "+ Animal.getDiedAnimals());
-        consoleProvider.printToConsole("Predators alive: "+predators);
-        consoleProvider.printToConsole("Herbivores alive: "+herbivores);
-        consoleProvider.printToConsole("Plants alive: "+ plants);
+        consoleProvider.printToConsole("Animals died: " + Animal.getDiedAnimals());
+        consoleProvider.printToConsole("Predators alive: " + predators);
+        consoleProvider.printToConsole("Herbivores alive: " + herbivores);
+        consoleProvider.printToConsole("Plants alive: " + plants);
         day++;
     }
-
-
 }

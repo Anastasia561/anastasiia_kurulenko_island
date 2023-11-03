@@ -1,4 +1,4 @@
-package ua.javarush.island.organism.animal.predator;
+package ua.javarush.island.organism.animal.herbivore;
 
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -7,14 +7,14 @@ import ua.javarush.island.annotations.Config;
 import ua.javarush.island.annotations.GameObjectEntity;
 
 @GameObjectEntity
-@Config(filePath = "Wolf.yaml")
-@SuperBuilder
+@Config(filePath = "Rabbit.yaml")
 @NoArgsConstructor
+@SuperBuilder
 @ToString(callSuper = true)
-public class Wolf extends Predator {
+public class Rabbit extends Herbivore {
     @Override
-    public Wolf reproduce() {
-        return Wolf.builder()
+    public Rabbit reproduce() {
+        return Rabbit.builder()
                 .normalWeight(this.getWeight())
                 .weight(this.getNormalWeight())
                 .speed(this.getSpeed())
