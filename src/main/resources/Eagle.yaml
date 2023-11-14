@@ -1,0 +1,9 @@
+normalWeight : 6
+speed : 3
+amount : 20
+food : 1
+stringTargetMatrix :
+  Rabbit : 90
+  Duck : 80
+  Mouse : 90
+  Fox : 10

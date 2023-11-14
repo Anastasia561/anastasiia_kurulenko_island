@@ -1,0 +1,6 @@
+normalWeight : 2
+speed : 2
+amount : 150
+food : 0.45
+stringTargetMatrix :
+  Grass : 100

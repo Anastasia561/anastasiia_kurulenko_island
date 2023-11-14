@@ -1,0 +1,7 @@
+normalWeight : 50
+speed : 3
+amount : 30
+food : 8
+stringTargetMatrix :
+  Horse : 10
+  Duck : 40

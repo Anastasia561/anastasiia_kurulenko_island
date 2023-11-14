@@ -1,0 +1,7 @@
+normalWeight : 1
+speed : 4
+amount : 200
+food : 0.15
+stringTargetMatrix :
+  Caterpillar : 90
+  Grass : 100

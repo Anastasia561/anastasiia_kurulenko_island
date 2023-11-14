@@ -1,0 +1,15 @@
+normalWeight : 500
+speed : 2
+amount : 5
+food : 80
+stringTargetMatrix :
+  Boa : 80
+  Horse : 40
+  Deer : 80
+  Rabbit : 80
+  Mouse : 90
+  Goat : 70
+  Sheep : 70
+  Boar : 50
+  Buffalo : 20
+  Duck : 10
